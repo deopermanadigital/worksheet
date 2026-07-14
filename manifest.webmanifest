@@ -1,36 +1,22 @@
 {
-    "name":"Mega Bundle Worksheet Anak",
-    "short_name":"Worksheet",
-
-    "start_url":"./",
-
-    "display":"standalone",
-
-    "background_color":"#ffffff",
-
-    "theme_color":"#7b2ff7",
-
-    "icons":[
-
-        {
-
-            "src":"assets/logo/icon-192.png",
-
-            "sizes":"192x192",
-
-            "type":"image/png"
-
-        },
-
-        {
-
-            "src":"assets/logo/icon-512.png",
-
-            "sizes":"512x512",
-
-            "type":"image/png"
-
-        }
-
-    ]
+  "name": "Mega Bundle Worksheet Anak",
+  "short_name": "Worksheet",
+  "description": "4000+ Printable Worksheet Premium",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#7b2ff7",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "assets/logo/favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/logo/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }

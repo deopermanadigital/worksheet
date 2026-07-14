@@ -1,0 +1,5 @@
+User-agent: *
+
+Allow: /
+
+Sitemap: https://deopermanadigital.github.io/worksheet/sitemap.xml

@@ -2049,5 +2049,73 @@ padding-bottom:85px;
 
 }
 
+/* ===== HERO MOBILE ===== */
+
+.hero{
+    padding-top:95px;
+}
+
+.hero-content{
+    grid-template-columns:1fr;
+    gap:30px;
+}
+
+.hero-right{
+    order:-1;
+}
+
+.hero-image img{
+    width:100%;
+    max-width:100%;
+    height:auto;
+    border-radius:20px;
+}
+
+.logo img{
+    width:45px;
+}
+
+.logo-text h3{
+    font-size:18px;
+}
+
+.logo-text span{
+    font-size:12px;
+}
+
+.btn{
+    display:none;
+}
+
+.header-wrap{
+    height:72px;
+}
+
+.hero h1{
+    font-size:36px;
+    line-height:1.2;
+}
+
+.hero-desc{
+    font-size:16px;
+}
+
+.hero-feature{
+    grid-template-columns:1fr;
+}
+
+.hero-action{
+    flex-direction:column;
+}
+
+.buy,
+.secondary{
+    width:100%;
+}
+
+.hero-bottom{
+    margin-top:40px;
+}
+
 }
 

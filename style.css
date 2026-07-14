@@ -594,13 +594,15 @@ position:relative;
 .hero-image img{
 
 width:100%;
-
 max-width:540px;
+height:auto;
+display:block;
+object-fit:contain;
+aspect-ratio:auto;
 
 border-radius:28px;
 
 box-shadow:
-
 0 35px 70px rgba(0,0,0,.18);
 
 }

@@ -233,7 +233,7 @@ gap:14px;
 
 .logo img{
 
-width:55px;
+width:45px;
 
 border-radius:16px;
 
@@ -245,7 +245,7 @@ box-shadow:
 
 .logo-text h3{
 
-font-size:20px;
+font-size:15px;
 
 font-weight:800;
 
@@ -255,7 +255,7 @@ color:var(--primary);
 
 .logo-text span{
 
-font-size:13px;
+font-size:11px;
 
 color:#777;
 
@@ -351,9 +351,9 @@ transform:translateY(-3px);
 
 .menu-toggle{
 
-display:none;
+padding:10px;
 
-font-size:26px;
+font-size:34px;
 
 }
 
@@ -373,15 +373,9 @@ overflow:hidden;
 }
 
 .hero-content{
-
-display:grid;
-
-grid-template-columns:1fr 1fr;
-
-gap:70px;
-
-align-items:center;
-
+    display:grid;
+    grid-template-columns:1fr;
+    gap:25px;
 }
 
 .hero-left{
@@ -850,8 +844,8 @@ display:none;
 @media(max-width:768px){
 
 .hero{
-
-padding-top:120px;
+    padding-top:80px;
+    padding-bottom:40px;
 
 }
 
@@ -1756,6 +1750,8 @@ transform:translateY(0);
 
 opacity:1;
 
+display:none;
+
 }
 
 #salesPopup img{
@@ -1825,52 +1821,23 @@ STICKY BUY MOBILE
 
 .sticky-buy{
 
-display:none;
-
-position:fixed;
-
-left:0;
-
-right:0;
-
-bottom:0;
-
-background:#fff;
-
-padding:15px 20px;
-
-box-shadow:0 -10px 30px rgba(0,0,0,.08);
-
-justify-content:space-between;
-
-align-items:center;
-
-z-index:999;
+padding:10px 15px;
 
 }
 
 .sticky-price strong{
 
-font-size:24px;
-
-color:#7b2ff7;
+font-size:28px;
 
 }
 
 .sticky-buy a{
 
-padding:15px 28px;
+padding:12px 20px;
 
-border-radius:999px;
-
-background:#7b2ff7;
-
-color:#fff;
-
-font-weight:700;
+font-size:15px;
 
 }
-
 /* ==========================================================
 RIPPLE
 ========================================================== */
@@ -2066,9 +2033,8 @@ padding-bottom:85px;
 
 .hero-image img{
     width:100%;
-    max-width:100%;
-    height:auto;
-    border-radius:20px;
+    max-width:360px;
+    margin:auto;
 }
 
 .logo img{
@@ -2088,7 +2054,7 @@ padding-bottom:85px;
 }
 
 .header-wrap{
-    height:72px;
+    height:65px;
 }
 
 .hero h1{
@@ -2117,5 +2083,27 @@ padding-bottom:85px;
     margin-top:40px;
 }
 
+.header-wrap{
+    padding:0 15px;
 }
+
+.logo{
+    gap:10px;
+}
+
+.logo-text h3{
+    font-size:16px;
+}
+
+.logo-text span{
+    font-size:11px;
+}
+
+.menu-toggle{
+    font-size:28px;
+    margin-left:auto;
+}
+
+}
+
 

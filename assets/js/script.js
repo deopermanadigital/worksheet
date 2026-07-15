@@ -108,25 +108,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =====================================
-       SMOOTH SCROLL
-    ===================================== */
+   SMOOTH SCROLL
+===================================== */
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+document.querySelectorAll('a[href^="#"]').forEach(link => {
 
-        anchor.addEventListener("click", function (e) {
+    link.addEventListener("click", function(e){
 
-            const target =
-                document.querySelector(this.getAttribute("href"));
+        const id = this.getAttribute("href");
 
-            if (!target) return;
+        if(id === "#") return;
 
-            e.preventDefault();
+        const target = document.querySelector(id);
 
-            target.scrollIntoView({
+        if(!target) return;
 
-                behavior: "smooth"
+        e.preventDefault();
 
-            });
+        target.scrollIntoView({
+
+            behavior:"smooth",
+            block:"start"
 
         });
 

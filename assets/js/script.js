@@ -349,6 +349,34 @@ popup.style.display="none";
 }
 
 /* ==========================================================
+POPUP BUY BUTTON
+========================================================== */
+
+const popupBuy=document.getElementById("popupBuy");
+
+if(popupBuy){
+
+popupBuy.addEventListener("click",(e)=>{
+
+e.preventDefault();
+
+popup.style.display="none";
+
+setTimeout(()=>{
+
+document.querySelector("#pricing").scrollIntoView({
+
+behavior:"smooth"
+
+});
+
+},200);
+
+});
+
+}
+  
+/* ==========================================================
 COUNTDOWN
 ========================================================== */
 

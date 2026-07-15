@@ -1,4 +1,3 @@
-
 /* ==========================================================
 MEGA BUNDLE WORKSHEET
 SCRIPT.JS V1.0
@@ -107,358 +106,393 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-/* =====================================
-   SMOOTH SCROLL
-===================================== */
+    /* =====================================
+       SMOOTH SCROLL
+    ===================================== */
 
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
-    anchor.addEventListener("click", function (e) {
+        anchor.addEventListener("click", function (e) {
 
-        const href = this.getAttribute("href");
+            const target =
+                document.querySelector(this.getAttribute("href"));
 
-        if (href === "#") return;
+            if (!target) return;
 
-        const target = document.querySelector(href);
+            e.preventDefault();
 
-        if (!target) return;
+            target.scrollIntoView({
 
-        e.preventDefault();
+                behavior: "smooth"
 
-        window.scrollTo({
-
-            top: target.offsetTop - 70,
-            behavior: "smooth"
+            });
 
         });
 
     });
 
-});
+    /* =====================================
+       PREVIEW SLIDER
+    ===================================== */
 
-/* =====================================
-   SLIDER PREVIEW
-===================================== */
+    const slides = document.querySelectorAll(".slide");
+    const prevBtn = document.querySelector(".prev");
+    const nextBtn = document.querySelector(".next");
 
-const slides = document.querySelectorAll(".slide");
-const prev = document.querySelector(".prev");
-const next = document.querySelector(".next");
+    let currentSlide = 0;
 
-let currentSlide = 0;
+    function showSlide(index) {
 
-function showSlide(index){
+        if (!slides.length) return;
 
-    if(slides.length === 0) return;
+        slides.forEach(slide => {
+            slide.classList.remove("active");
+        });
 
-    slides.forEach(slide=>{
-
-        slide.classList.remove("active");
-
-    });
-
-    currentSlide = index;
-
-    if(currentSlide >= slides.length){
-
-        currentSlide = 0;
+        slides[index].classList.add("active");
 
     }
 
-    if(currentSlide < 0){
+    function nextSlide() {
 
-        currentSlide = slides.length-1;
+        currentSlide++;
 
-    }
-
-    slides[currentSlide].classList.add("active");
-
-}
-
-if(next){
-
-    next.addEventListener("click",()=>{
-
-        showSlide(currentSlide+1);
-
-    });
-
-}
-
-if(prev){
-
-    prev.addEventListener("click",()=>{
-
-        showSlide(currentSlide-1);
-
-    });
-
-}
-
-if(slides.length){
-
-    setInterval(()=>{
-
-        showSlide(currentSlide+1);
-
-    },5000);
-
-}
-
-
-/* =====================================
-   REVEAL ANIMATION
-===================================== */
-
-const reveals = document.querySelectorAll(".reveal");
-
-function revealElements(){
-
-    const trigger = window.innerHeight - 120;
-
-    reveals.forEach(el=>{
-
-        const top = el.getBoundingClientRect().top;
-
-        if(top < trigger){
-
-            el.classList.add("active");
-
+        if (currentSlide >= slides.length) {
+            currentSlide = 0;
         }
 
-    });
+        showSlide(currentSlide);
 
-}
+    }
 
-window.addEventListener("scroll",revealElements);
+    function prevSlide() {
 
-revealElements();
+        currentSlide--;
+
+        if (currentSlide < 0) {
+            currentSlide = slides.length - 1;
+        }
+
+        showSlide(currentSlide);
+
+    }
+
+    if (nextBtn) {
+
+        nextBtn.addEventListener("click", nextSlide);
+
+    }
+
+    if (prevBtn) {
+
+        prevBtn.addEventListener("click", prevSlide);
+
+    }
+
+    if (slides.length > 1) {
+
+        setInterval(nextSlide, 4000);
+
+    }
+
+    showSlide(currentSlide);
 
 
-/* =====================================
-   COUNTER ANIMATION
-===================================== */
 
-const counters = document.querySelectorAll(".counter h2");
+    /* =====================================
+       REVEAL ANIMATION
+    ===================================== */
 
-let counterPlayed = false;
+    const reveals = document.querySelectorAll(".reveal");
 
-function runCounter(){
+    function revealSection() {
 
-    if(counterPlayed) return;
+        const windowHeight = window.innerHeight;
 
-    const section = document.querySelector(".counter");
+        reveals.forEach(item => {
 
-    if(!section) return;
+            const top = item.getBoundingClientRect().top;
 
-    const top = section.getBoundingClientRect().top;
+            if (top < windowHeight - 80) {
 
-    if(top > window.innerHeight-100) return;
-
-    counterPlayed = true;
-
-    counters.forEach(counter=>{
-
-        const text = counter.innerText;
-
-        const number = parseInt(text.replace(/\D/g,""));
-
-        if(isNaN(number)) return;
-
-        let start = 0;
-
-        const step = Math.ceil(number/80);
-
-        const timer = setInterval(()=>{
-
-            start += step;
-
-            if(start >= number){
-
-                counter.innerText = text;
-
-                clearInterval(timer);
-
-            }else{
-
-                if(text.includes("+")){
-
-                    counter.innerText = start + "+";
-
-                }
-
-                else if(text.includes("/")){
-
-                    counter.innerText = text;
-
-                }
-
-                else{
-
-                    counter.innerText = start;
-
-                }
+                item.classList.add("active");
 
             }
 
-        },20);
+        });
+
+    }
+
+    window.addEventListener("scroll", revealSection);
+
+    revealSection();
+
+
+
+    /* =====================================
+       COUNTER
+    ===================================== */
+
+    const counters = document.querySelectorAll(".counter h2");
+
+    let counterStarted = false;
+
+    function animateCounter() {
+
+        if (counterStarted) return;
+
+        const counterBox = document.querySelector(".counter");
+
+        if (!counterBox) return;
+
+        const top = counterBox.getBoundingClientRect().top;
+
+        if (top > window.innerHeight - 100) return;
+
+        counterStarted = true;
+
+        counters.forEach(counter => {
+
+            const original = counter.innerText;
+
+            const value = parseInt(original.replace(/\D/g, ""));
+
+            if (!value) return;
+
+            let start = 0;
+
+            const speed = value / 80;
+
+            const interval = setInterval(() => {
+
+                start += speed;
+
+                if (start >= value) {
+
+                    counter.innerText = original;
+
+                    clearInterval(interval);
+
+                } else {
+
+                    if (original.includes("+")) {
+
+                        counter.innerText =
+                            Math.floor(start) + "+";
+
+                    } else {
+
+                        counter.innerText =
+                            Math.floor(start);
+
+                    }
+
+                }
+
+            }, 20);
+
+        });
+
+    }
+
+    window.addEventListener("scroll", animateCounter);
+
+    animateCounter();
+
+
+
+    /* =====================================
+       RIPPLE BUTTON
+    ===================================== */
+
+    document.querySelectorAll(".buy,.btn,.buy-now,.cta a")
+    .forEach(button => {
+
+        button.addEventListener("click", function(e){
+
+            const ripple = document.createElement("span");
+
+            ripple.className = "ripple";
+
+            const rect = this.getBoundingClientRect();
+
+            ripple.style.left =
+                (e.clientX - rect.left) + "px";
+
+            ripple.style.top =
+                (e.clientY - rect.top) + "px";
+
+            this.appendChild(ripple);
+
+            setTimeout(() => {
+
+                ripple.remove();
+
+            },600);
+
+        });
 
     });
 
-}
 
-window.addEventListener("scroll",runCounter);
 
-runCounter();
+    /* =====================================
+       ACTIVE MENU
+    ===================================== */
 
-/* =====================================
-   RIPPLE EFFECT
-===================================== */
+    const sections = document.querySelectorAll("section[id]");
 
-document
-.querySelectorAll(".btn,.buy,.buy-now,.secondary,.cta a")
-.forEach(btn=>{
+    const navLinks = document.querySelectorAll("#navbar a");
 
-    btn.addEventListener("click",function(e){
+    function activeMenu(){
 
-        const ripple=document.createElement("span");
+        let current = "";
 
-        ripple.className="ripple";
+        sections.forEach(section=>{
 
-        const rect=this.getBoundingClientRect();
+            const top = section.offsetTop - 120;
 
-        const size=Math.max(rect.width,rect.height);
+            const height = section.offsetHeight;
 
-        ripple.style.width=size+"px";
-        ripple.style.height=size+"px";
+            if(window.scrollY >= top){
 
-        ripple.style.left=(e.clientX-rect.left-size/2)+"px";
-        ripple.style.top=(e.clientY-rect.top-size/2)+"px";
+                current = section.getAttribute("id");
 
-        this.appendChild(ripple);
+            }
 
-        setTimeout(()=>{
+        });
 
-            ripple.remove();
+        navLinks.forEach(link=>{
 
-        },600);
+            link.classList.remove("active");
+
+            if(link.getAttribute("href")==="#" + current){
+
+                link.classList.add("active");
+
+            }
+
+        });
+
+    }
+
+    window.addEventListener("scroll",activeMenu);
+
+    activeMenu();
+
+    /* =====================================
+       FAQ ACCORDION
+    ===================================== */
+
+    const faqItems = document.querySelectorAll(".faq details");
+
+    faqItems.forEach(item => {
+
+        item.addEventListener("toggle", () => {
+
+            if (!item.open) return;
+
+            faqItems.forEach(other => {
+
+                if (other !== item) {
+
+                    other.open = false;
+
+                }
+
+            });
+
+        });
 
     });
 
-});
-    
-/* =====================================
-   ACTIVE MENU
-===================================== */
 
-const sections=document.querySelectorAll("section[id]");
-const navLinks=document.querySelectorAll("#navbar a");
 
-function activeMenu(){
+    /* =====================================
+       STICKY BUY MOBILE
+    ===================================== */
 
-    let current="";
+    const stickyBuy = document.querySelector(".sticky-buy");
 
-    sections.forEach(section=>{
+    function toggleStickyBuy() {
 
-        const top=section.offsetTop-120;
-        const height=section.offsetHeight;
+        if (!stickyBuy) return;
 
-        if(pageYOffset>=top){
+        if (window.innerWidth > 768) {
 
-            current=section.getAttribute("id");
+            stickyBuy.style.display = "none";
+            return;
 
         }
 
-    });
+        if (window.scrollY > 500) {
 
-    navLinks.forEach(link=>{
+            stickyBuy.style.display = "flex";
 
-        link.classList.remove("active");
+        } else {
 
-        if(link.getAttribute("href")==="#"+current){
+            stickyBuy.style.display = "none";
+
+        }
+
+    }
+
+    window.addEventListener("scroll", toggleStickyBuy);
+
+    window.addEventListener("resize", toggleStickyBuy);
+
+    toggleStickyBuy();
+
+
+
+    /* =====================================
+       ACTIVE NAVBAR SCROLL
+    ===================================== */
+
+    const navLinksAll = document.querySelectorAll("#navbar a");
+
+    navLinksAll.forEach(link => {
+
+        link.addEventListener("click", () => {
+
+            navLinksAll.forEach(nav => {
+
+                nav.classList.remove("active");
+
+            });
 
             link.classList.add("active");
 
+        });
+
+    });
+
+
+
+    /* =====================================
+       IMAGE LAZY FALLBACK
+    ===================================== */
+
+    document.querySelectorAll("img").forEach(img => {
+
+        if (!img.hasAttribute("loading")) {
+
+            img.setAttribute("loading", "lazy");
+
         }
 
     });
 
-}
-
-window.addEventListener("scroll",activeMenu);
-
-activeMenu();
 
 
-/* =====================================
-   STICKY BUY MOBILE
-===================================== */
+    /* =====================================
+       CONSOLE INFO
+    ===================================== */
 
-const stickyBuy=document.querySelector(".sticky-buy");
+    console.log("%cMega Bundle Worksheet V1.0",
+        "color:#7b2ff7;font-size:18px;font-weight:bold");
 
-function stickyMobile(){
-
-    if(!stickyBuy) return;
-
-    if(window.innerWidth>768){
-
-        stickyBuy.style.display="none";
-        return;
-
-    }
-
-    if(window.scrollY>500){
-
-        stickyBuy.style.display="flex";
-
-    }else{
-
-        stickyBuy.style.display="none";
-
-    }
-
-}
-
-window.addEventListener("scroll",stickyMobile);
-
-window.addEventListener("resize",stickyMobile);
-
-stickyMobile();
-
-
-/* =====================================
-   PREVENT IMAGE DRAG
-===================================== */
-
-document.querySelectorAll("img").forEach(img=>{
-
-    img.setAttribute("draggable","false");
-
+    console.log("Developed by Deo Permana Digital");
+    
+    
 });
-
-
-/* =====================================
-   LAZY LOAD IMAGE
-===================================== */
-
-document.querySelectorAll("img").forEach(img=>{
-
-    if(!img.hasAttribute("loading")){
-
-        img.loading="lazy";
-
-    }
-
-});
-
-
-/* =====================================
-   CONSOLE
-===================================== */
-
-console.log("%cMega Bundle Worksheet",
-"color:#7b2ff7;font-size:18px;font-weight:bold");
-
-console.log("Version 1.0 Final Loaded");
-
-});
-

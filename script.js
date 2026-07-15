@@ -1,90 +1,131 @@
 /* ==========================================================
-SCRIPT.JS PREMIUM V4.0
-PART 1
+MEGA BUNDLE WORKSHEET
+SCRIPT.JS V1.0
 ========================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-const $ = (selector) => document.querySelector(selector);
-const $$ = (selector) => document.querySelectorAll(selector);
+    /* =====================================
+       LOADER
+    ===================================== */
 
-/* ==========================================================
-LOADER
-========================================================== */
+    window.addEventListener("load", () => {
 
-const loader = $("#loader");
+        const loader = document.getElementById("loader");
 
-window.addEventListener("load", () => {
+        if (loader) {
 
-    if (!loader) return;
+            loader.style.opacity = "0";
 
-    loader.style.opacity = "0";
+            setTimeout(() => {
 
-    setTimeout(() => {
+                loader.style.display = "none";
 
-        loader.style.display = "none";
+            }, 400);
 
-    }, 500);
+        }
 
-});
+    });
 
-/* ==========================================================
-HEADER + PROGRESS
-========================================================== */
+    /* =====================================
+       STICKY HEADER
+    ===================================== */
 
-const header = $("header");
-const progress = $("#progress");
+    const header = document.getElementById("header");
 
-function handleScroll() {
+    function stickyHeader() {
 
-    const scroll = window.scrollY;
+        if (!header) return;
 
-    if (header) {
+        if (window.scrollY > 60) {
 
-        header.classList.toggle("sticky", scroll > 40);
+            header.classList.add("sticky");
+
+        } else {
+
+            header.classList.remove("sticky");
+
+        }
 
     }
 
-    if (progress) {
+    window.addEventListener("scroll", stickyHeader);
 
-        const total =
+    stickyHeader();
+
+    /* =====================================
+       PROGRESS BAR
+    ===================================== */
+
+    const progress = document.getElementById("progress");
+
+    function progressBar() {
+
+        if (!progress) return;
+
+        const totalHeight =
             document.documentElement.scrollHeight -
-            window.innerHeight;
+            document.documentElement.clientHeight;
 
-        const percent = (scroll / total) * 100;
+        const progressWidth =
+            (window.pageYOffset / totalHeight) * 100;
 
-        progress.style.width = percent + "%";
+        progress.style.width = progressWidth + "%";
 
     }
 
-}
+    window.addEventListener("scroll", progressBar);
 
-handleScroll();
+    progressBar();
 
-window.addEventListener("scroll", handleScroll);
+    /* =====================================
+       MOBILE MENU
+    ===================================== */
 
-/* ==========================================================
-SMOOTH SCROLL
-========================================================== */
+    const menuBtn = document.querySelector(".menu-toggle");
 
-$$('a[href^="#"]').forEach(link => {
+    const navbar = document.getElementById("navbar");
 
-    link.addEventListener("click", e => {
+    if (menuBtn && navbar) {
 
-        const target =
-            document.querySelector(
-                link.getAttribute("href")
-            );
+        menuBtn.addEventListener("click", () => {
 
-        if (!target) return;
+            navbar.classList.toggle("active");
 
-        e.preventDefault();
+        });
 
-        window.scrollTo({
+        navbar.querySelectorAll("a").forEach(link => {
 
-            top: target.offsetTop - 90,
+            link.addEventListener("click", () => {
 
-            behavior: "smooth"
+                navbar.classList.remove("active");
+
+            });
+
+        });
+
+    }
+
+    /* =====================================
+       SMOOTH SCROLL
+    ===================================== */
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+
+        anchor.addEventListener("click", function (e) {
+
+            const target =
+                document.querySelector(this.getAttribute("href"));
+
+            if (!target) return;
+
+            e.preventDefault();
+
+            target.scrollIntoView({
+
+                behavior: "smooth"
+
+            });
 
         });
 
@@ -92,400 +133,92 @@ $$('a[href^="#"]').forEach(link => {
 
 });
 
-/* ==========================================================
-REVEAL
-========================================================== */
+/* =====================================
+   SLIDER PREVIEW
+===================================== */
 
-const revealItems = $$(
-`
-section,
-.box,
-.bonus-card,
-.price-box,
-.guarantee,
-.counter div
-`
-);
+const slides = document.querySelectorAll(".slide");
+const prev = document.querySelector(".prev");
+const next = document.querySelector(".next");
 
-const revealObserver = new IntersectionObserver(entries => {
+let currentSlide = 0;
 
-    entries.forEach(entry => {
+function showSlide(index){
 
-        if (entry.isIntersecting) {
+    if(slides.length === 0) return;
 
-            entry.target.classList.add("active");
+    slides.forEach(slide=>{
 
-            revealObserver.unobserve(entry.target);
-
-        }
+        slide.classList.remove("active");
 
     });
 
-}, {
+    currentSlide = index;
 
-    threshold: .15
+    if(currentSlide >= slides.length){
 
-});
-
-revealItems.forEach(item => {
-
-    item.classList.add("reveal");
-
-    revealObserver.observe(item);
-
-});
-
-/* ==========================================================
-COUNTER
-========================================================== */
-
-const counters = $$(".count");
-
-const counterObserver = new IntersectionObserver(entries => {
-
-    entries.forEach(entry => {
-
-        if (!entry.isIntersecting) return;
-
-        const el = entry.target;
-
-        const target =
-            parseInt(el.dataset.target);
-
-        let current = 0;
-
-        const increment =
-            Math.max(1, Math.ceil(target / 80));
-
-        function update() {
-
-            current += increment;
-
-            if (current >= target) {
-
-                current = target;
-
-            }
-
-            if (target === 4000) {
-
-                el.textContent =
-                    current + "+";
-
-            }
-
-            else if (target === 1000) {
-
-                el.textContent =
-                    current + "+";
-
-            }
-
-            else if (target === 99) {
-
-                el.textContent =
-                    current + "%";
-
-            }
-
-            else {
-
-                el.textContent =
-                    current;
-
-            }
-
-            if (current < target) {
-
-                requestAnimationFrame(update);
-
-            }
-
-        }
-
-        update();
-
-        counterObserver.unobserve(el);
-
-    });
-
-}, {
-
-    threshold: .5
-
-});
-
-counters.forEach(counter => {
-
-    counterObserver.observe(counter);
-
-});
-
-/* ==========================================================
-SLIDER + SWIPE
-========================================================== */
-
-const slides = $$(".slide");
-const nextBtn = $(".next");
-const prevBtn = $(".prev");
-
-if (slides.length) {
-
-    let currentSlide = 0;
-    let autoSlide;
-
-    function showSlide(index){
-
-        slides.forEach((slide,i)=>{
-
-            slide.classList.toggle("active",i===index);
-
-        });
+        currentSlide = 0;
 
     }
 
-    function nextSlide(){
+    if(currentSlide < 0){
 
-        currentSlide++;
-
-        if(currentSlide>=slides.length){
-
-            currentSlide=0;
-
-        }
-
-        showSlide(currentSlide);
+        currentSlide = slides.length-1;
 
     }
 
-    function prevSlide(){
-
-        currentSlide--;
-
-        if(currentSlide<0){
-
-            currentSlide=slides.length-1;
-
-        }
-
-        showSlide(currentSlide);
-
-    }
-
-    function startAuto(){
-
-        stopAuto();
-
-        autoSlide=setInterval(nextSlide,5000);
-
-    }
-
-    function stopAuto(){
-
-        clearInterval(autoSlide);
-
-    }
-
-    nextBtn?.addEventListener("click",()=>{
-
-        nextSlide();
-
-        startAuto();
-
-    });
-
-    prevBtn?.addEventListener("click",()=>{
-
-        prevSlide();
-
-        startAuto();
-
-    });
-
-    const slider=$(".slider");
-
-    let startX=0;
-
-    slider?.addEventListener("touchstart",(e)=>{
-
-        startX=e.touches[0].clientX;
-
-    });
-
-    slider?.addEventListener("touchend",(e)=>{
-
-        const endX=e.changedTouches[0].clientX;
-
-        const diff=startX-endX;
-
-        if(diff>60){
-
-            nextSlide();
-
-            startAuto();
-
-        }
-
-        if(diff<-60){
-
-            prevSlide();
-
-            startAuto();
-
-        }
-
-    });
-
-    showSlide(currentSlide);
-
-    startAuto();
+    slides[currentSlide].classList.add("active");
 
 }
 
-/* ==========================================================
-LIGHTBOX
-========================================================== */
+if(next){
 
-const lightbox=$("#lightbox");
-const lightboxImg=$("#lightboxImg");
+    next.addEventListener("click",()=>{
 
-slides.forEach(img=>{
-
-    img.addEventListener("click",()=>{
-
-        if(!lightbox||!lightboxImg) return;
-
-        lightbox.style.display="flex";
-
-        lightboxImg.src=img.src;
-
-        document.body.style.overflow="hidden";
+        showSlide(currentSlide+1);
 
     });
 
-});
-
-lightbox?.addEventListener("click",()=>{
-
-    lightbox.style.display="none";
-
-    document.body.style.overflow="";
-
-});
-
-/* ==========================================================
-PROMO POPUP
-========================================================== */
-
-const promoPopup=$("#promoPopup");
-const closePopup=$("#closePopup");
-
-if(promoPopup){
-
-    if(!sessionStorage.getItem("promo")){
-
-        setTimeout(()=>{
-
-            promoPopup.style.display="flex";
-
-        },2000);
-
-    }
-
 }
 
-closePopup?.addEventListener("click",()=>{
+if(prev){
 
-    promoPopup.style.display="none";
+    prev.addEventListener("click",()=>{
 
-    sessionStorage.setItem("promo","1");
-
-});
-
-promoPopup?.addEventListener("click",(e)=>{
-
-    if(e.target===promoPopup){
-
-        promoPopup.style.display="none";
-
-        sessionStorage.setItem("promo","1");
-
-    }
-
-});
-
-/* ==========================================================
-COUNTDOWN
-========================================================== */
-
-const countdown=$("#countdown");
-
-if(countdown){
-
-    let end=Date.now()+(2*60*60*1000);
-
-    function updateCountdown(){
-
-        let distance=end-Date.now();
-
-        if(distance<0){
-
-            end=Date.now()+(2*60*60*1000);
-
-            distance=end-Date.now();
-
-        }
-
-        const h=Math.floor(distance/3600000);
-        const m=Math.floor((distance%3600000)/60000);
-        const s=Math.floor((distance%60000)/1000);
-
-        countdown.textContent=
-
-            String(h).padStart(2,"0")+":"+
-
-            String(m).padStart(2,"0")+":"+
-
-            String(s).padStart(2,"0");
-
-    }
-
-    updateCountdown();
-
-    setInterval(updateCountdown,1000);
-
-}
-
-/* ==========================================================
-ACTIVE MENU
-========================================================== */
-
-const sections=$$("section[id]");
-const menus=$$("#navbar a");
-
-function activeMenu(){
-
-    let current="";
-
-    sections.forEach(section=>{
-
-        const top=section.offsetTop-150;
-
-        if(window.scrollY>=top){
-
-            current=section.id;
-
-        }
+        showSlide(currentSlide-1);
 
     });
 
-    menus.forEach(menu=>{
+}
 
-        menu.classList.remove("active");
+if(slides.length){
 
-        if(menu.getAttribute("href")==="#"+current){
+    setInterval(()=>{
 
-            menu.classList.add("active");
+        showSlide(currentSlide+1);
+
+    },5000);
+
+}
+
+
+/* =====================================
+   REVEAL ANIMATION
+===================================== */
+
+const reveals = document.querySelectorAll(".reveal");
+
+function revealElements(){
+
+    const trigger = window.innerHeight - 120;
+
+    reveals.forEach(el=>{
+
+        const top = el.getBoundingClientRect().top;
+
+        if(top < trigger){
+
+            el.classList.add("active");
 
         }
 
@@ -493,73 +226,93 @@ function activeMenu(){
 
 }
 
-activeMenu();
+window.addEventListener("scroll",revealElements);
 
-window.addEventListener("scroll",activeMenu);
+revealElements();
 
-/* ==========================================================
-LIVE SALES POPUP
-========================================================== */
 
-const buyers = [
+/* =====================================
+   COUNTER ANIMATION
+===================================== */
 
-"Rina - Bandung",
-"Budi - Surabaya",
-"Sinta - Jakarta",
-"Andi - Gresik",
-"Nabila - Malang",
-"Dewi - Semarang",
-"Fajar - Jogja",
-"Yuni - Bekasi",
-"Putri - Bali",
-"Arif - Sidoarjo",
-"Lina - Makassar",
-"Rizky - Kediri"
+const counters = document.querySelectorAll(".counter h2");
 
-];
+let counterPlayed = false;
 
-const salesPopup=$("#salesPopup");
-const buyerName=$("#buyerName");
-const buyerTime=$("#buyerTime");
+function runCounter(){
 
-function randomMinute(){
+    if(counterPlayed) return;
 
-    return Math.floor(Math.random()*9)+1;
+    const section = document.querySelector(".counter");
+
+    if(!section) return;
+
+    const top = section.getBoundingClientRect().top;
+
+    if(top > window.innerHeight-100) return;
+
+    counterPlayed = true;
+
+    counters.forEach(counter=>{
+
+        const text = counter.innerText;
+
+        const number = parseInt(text.replace(/\D/g,""));
+
+        if(isNaN(number)) return;
+
+        let start = 0;
+
+        const step = Math.ceil(number/80);
+
+        const timer = setInterval(()=>{
+
+            start += step;
+
+            if(start >= number){
+
+                counter.innerText = text;
+
+                clearInterval(timer);
+
+            }else{
+
+                if(text.includes("+")){
+
+                    counter.innerText = start + "+";
+
+                }
+
+                else if(text.includes("/")){
+
+                    counter.innerText = text;
+
+                }
+
+                else{
+
+                    counter.innerText = start;
+
+                }
+
+            }
+
+        },20);
+
+    });
 
 }
 
-function showSales(){
+window.addEventListener("scroll",runCounter);
 
-    if(!salesPopup) return;
+runCounter();
 
-    buyerName.textContent=
+/* =====================================
+   RIPPLE EFFECT
+===================================== */
 
-    buyers[Math.floor(Math.random()*buyers.length)];
-
-    buyerTime.textContent=
-
-    randomMinute()+" menit lalu";
-
-    salesPopup.classList.add("show");
-
-    setTimeout(()=>{
-
-        salesPopup.classList.remove("show");
-
-    },4500);
-
-}
-
-setTimeout(showSales,5000);
-
-setInterval(showSales,18000);
-
-
-/* ==========================================================
-BUTTON RIPPLE
-========================================================== */
-
-$$(".buy,.btn,.buy-now,.cta a").forEach(button=>{
+document.querySelectorAll(".btn,.buy,.buy-now,.secondary,.cta a")
+.forEach(button=>{
 
     button.addEventListener("click",function(e){
 
@@ -574,11 +327,8 @@ $$(".buy,.btn,.buy-now,.cta a").forEach(button=>{
         ripple.style.width=size+"px";
         ripple.style.height=size+"px";
 
-        ripple.style.left=
-        (e.clientX-rect.left-size/2)+"px";
-
-        ripple.style.top=
-        (e.clientY-rect.top-size/2)+"px";
+        ripple.style.left=e.clientX-rect.left-size/2+"px";
+        ripple.style.top=e.clientY-rect.top-size/2+"px";
 
         this.appendChild(ripple);
 
@@ -593,108 +343,117 @@ $$(".buy,.btn,.buy-now,.cta a").forEach(button=>{
 });
 
 
-/* ==========================================================
-LAZY IMAGE
-========================================================== */
+/* =====================================
+   ACTIVE MENU
+===================================== */
 
-$$("img").forEach(img=>{
+const sections=document.querySelectorAll("section[id]");
+const navLinks=document.querySelectorAll("#navbar a");
 
-    img.loading="lazy";
+function activeMenu(){
 
-    img.decoding="async";
+    let current="";
 
-});
+    sections.forEach(section=>{
 
+        const top=section.offsetTop-120;
+        const height=section.offsetHeight;
 
-/* ==========================================================
-PARALLAX BLOB
-========================================================== */
+        if(pageYOffset>=top){
 
-const blobs=$$(".blob");
-
-window.addEventListener("mousemove",(e)=>{
-
-    const x=e.clientX/window.innerWidth;
-
-    const y=e.clientY/window.innerHeight;
-
-    blobs.forEach((blob,index)=>{
-
-        const speed=(index+1)*12;
-
-        blob.style.transform=
-
-        `translate(${x*speed}px,${y*speed}px)`;
-
-    });
-
-});
-
-
-/* ==========================================================
-FAQ ACCORDION
-========================================================== */
-
-$$(".faq details").forEach(item=>{
-
-    item.addEventListener("toggle",()=>{
-
-        if(item.open){
-
-            $$(".faq details").forEach(other=>{
-
-                if(other!==item){
-
-                    other.removeAttribute("open");
-
-                }
-
-            });
+            current=section.getAttribute("id");
 
         }
 
     });
 
-});
+    navLinks.forEach(link=>{
 
+        link.classList.remove("active");
 
-/* ==========================================================
-MOBILE MENU
-========================================================== */
+        if(link.getAttribute("href")==="#"+current){
 
-const menuToggle=$("#menuToggle");
-const navbar=$("#navbar");
+            link.classList.add("active");
 
-menuToggle?.addEventListener("click",()=>{
-
-    navbar.classList.toggle("active");
-
-});
-
-$$('#navbar a').forEach(link=>{
-
-    link.addEventListener("click",()=>{
-
-        navbar.classList.remove("active");
+        }
 
     });
 
+}
+
+window.addEventListener("scroll",activeMenu);
+
+activeMenu();
+
+
+/* =====================================
+   STICKY BUY MOBILE
+===================================== */
+
+const stickyBuy=document.querySelector(".sticky-buy");
+
+function stickyMobile(){
+
+    if(!stickyBuy) return;
+
+    if(window.innerWidth>768){
+
+        stickyBuy.style.display="none";
+        return;
+
+    }
+
+    if(window.scrollY>500){
+
+        stickyBuy.style.display="flex";
+
+    }else{
+
+        stickyBuy.style.display="none";
+
+    }
+
+}
+
+window.addEventListener("scroll",stickyMobile);
+
+window.addEventListener("resize",stickyMobile);
+
+stickyMobile();
+
+
+/* =====================================
+   PREVENT IMAGE DRAG
+===================================== */
+
+document.querySelectorAll("img").forEach(img=>{
+
+    img.setAttribute("draggable","false");
+
 });
 
 
-/* ==========================================================
-PERFORMANCE
-========================================================== */
+/* =====================================
+   LAZY LOAD IMAGE
+===================================== */
 
-window.addEventListener("pageshow",()=>{
+document.querySelectorAll("img").forEach(img=>{
 
-    document.body.classList.add("loaded");
+    if(!img.hasAttribute("loading")){
 
-});
+        img.loading="lazy";
 
-
-/* ==========================================================
-END
-========================================================== */
+    }
 
 });
+
+
+/* =====================================
+   CONSOLE
+===================================== */
+
+console.log("%cMega Bundle Worksheet",
+"color:#7b2ff7;font-size:18px;font-weight:bold");
+
+console.log("Version 1.0 Final Loaded");
+

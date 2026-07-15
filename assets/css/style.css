@@ -451,19 +451,19 @@ align-items:center;
 
 gap:8px;
 
-padding:10px 20px;
+padding:12px 26px;
 
 background:#fff;
 
 border-radius:999px;
 
-font-size:14px;
+font-size:16px;
 
-font-weight:700;
+font-weight:800;
 
 color:var(--primary);
 
-box-shadow:var(--shadow);
+box-shadow:0 15px 35px rgba(123,47,247,.18);
 
 margin-bottom:20px;
 
@@ -471,17 +471,17 @@ margin-bottom:20px;
 
 .hero-mini{
 
-font-size:15px;
-
-color:var(--text-light);
-
+font-size:18px;
+font-weight:600;
+margin-top:18px;
 margin-bottom:18px;
+color:#666;
 
 }
 
 .hero h1{
 
-font-size:64px;
+font-size:68px;
 
 font-weight:800;
 
@@ -1810,49 +1810,39 @@ grid-template-columns:1fr 1fr;
 
 }
 
-/* ==========================
-HEADER MOBILE
-========================== */
-
 @media(max-width:768px){
 
+/* ==========================
+HEADER
+========================== */
+
 header{
-
-background:#ffffff;
-
+background:#fff;
 box-shadow:0 10px 25px rgba(0,0,0,.08);
-
 }
 
 .header-wrap{
-
 height:70px;
-
 }
 
 .logo img{
-
 width:42px;
 height:42px;
-
 }
 
 .logo-text h3{
-
-font-size:16px;
-
+font-size:19px;
+font-weight:800;
 }
 
 .logo-text span{
-
-font-size:11px;
-
+font-size:13px;
+font-weight:600;
 }
 
 .menu-toggle{
 
 display:flex;
-
 align-items:center;
 justify-content:center;
 
@@ -1869,7 +1859,9 @@ color:var(--primary);
 
 }
 
-/* MENU */
+/* ==========================
+MENU
+========================== */
 
 #navbar{
 
@@ -1881,7 +1873,7 @@ left:0;
 
 width:100%;
 
-background:#ffffff;
+background:#fff;
 
 display:none;
 
@@ -1889,7 +1881,7 @@ flex-direction:column;
 
 padding:20px;
 
-gap:5px;
+gap:8px;
 
 box-shadow:0 15px 40px rgba(0,0,0,.08);
 
@@ -1906,16 +1898,7 @@ display:flex;
 #navbar a{
 
 padding:15px;
-
 border-radius:12px;
-
-font-weight:600;
-
-}
-
-#navbar a:hover{
-
-background:#f3efff;
 
 }
 
@@ -1925,8 +1908,132 @@ display:none;
 
 }
 
+/* ==========================
+HERO
+========================== */
+
+.hero{
+
+padding-top:105px;
+
+text-align:center;
+
 }
 
+.hero-content{
+
+grid-template-columns:1fr;
+
+gap:40px;
+
+}
+
+.hero h1{
+
+font-size:48px;
+line-height:1.1;
+
+}
+
+.hero-mini{
+
+font-size:18px;
+
+}
+
+.hero-desc{
+
+font-size:16px;
+
+}
+
+.hero-feature{
+
+grid-template-columns:1fr;
+
+}
+
+.hero-action{
+
+justify-content:center;
+
+}
+
+.buy,
+.secondary{
+
+width:100%;
+
+}
+
+/* ==========================
+SECTION
+========================== */
+
+.section-title h2{
+
+font-size:34px;
+
+}
+
+/* ==========================
+COUNTER
+========================== */
+
+.counter{
+
+grid-template-columns:repeat(2,1fr);
+
+gap:15px;
+
+}
+
+/* ==========================
+CARD
+========================== */
+
+.bonus-grid,
+.testimonial{
+
+grid-template-columns:1fr;
+
+}
+
+/* ==========================
+PRICING
+========================== */
+
+.price-box{
+
+grid-template-columns:1fr;
+
+}
+
+/* ==========================
+FOOTER
+========================== */
+
+.footer-container,
+.footer-right{
+
+grid-template-columns:1fr;
+
+}
+
+.prev,
+.next{
+
+display:none;
+
+}
+
+.wa-text{
+
+display:none;
+
+}
+
+}
 @keyframes menuDrop{
 
 from{

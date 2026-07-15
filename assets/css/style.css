@@ -288,14 +288,37 @@ header.sticky{
 }
 
 .btn{
-    padding:11px 22px;
-    font-size:18px;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:16px 42px;
+
+    min-width:200px;
+    height:58px;
+
+    font-size:17px;
     font-weight:700;
-    color:#fff;
-    background:linear-gradient(135deg,#7b2ff7,#9d4edd);
+    letter-spacing:.5px;
+    text-transform:uppercase;
+
+    color:#ffffff;
+
+    background:linear-gradient(135deg,#7b2ff7,#9b5cff);
+
     border:none;
+
     border-radius:50px;
-    box-shadow:0 8px 25px rgba(123,47,247,.25);
+
+    text-decoration:none;
+
+    box-shadow:0 12px 28px rgba(123,47,247,.28);
+
+    transition:.35s ease;
+
+    cursor:pointer;
+
 }
 
 .btn:hover{

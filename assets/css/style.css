@@ -771,45 +771,40 @@ gap:25px;
 
 .counter div{
 
-background:#fff;
+padding:28px 18px;
 
-padding:30px;
+border-radius:26px;
 
-border-radius:24px;
+min-height:170px;
 
-text-align:center;
+display:flex;
 
-box-shadow:
+flex-direction:column;
 
-0 15px 35px rgba(0,0,0,.06);
-
-transition:.35s;
+justify-content:center;
 
 }
-
 .counter div:hover{
 
 transform:translateY(-8px);
 
 }
 
+@media(max-width:768px){
+
 .counter h2{
 
-font-size:42px;
-
-font-weight:800;
-
-color:var(--primary);
-
-margin-bottom:8px;
+font-size:44px;
 
 }
 
-.counter p{
+.counter div{
 
-font-weight:600;
+min-height:145px;
 
-color:#777;
+padding:22px;
+
+}
 
 }
 
@@ -1310,10 +1305,9 @@ background:linear-gradient(180deg,#fafcff,#f2f5ff);
 }
 
 .price-box{
-display:grid;
-grid-template-columns:1fr 420px;
-gap:45px;
-align-items:center;
+padding:30px;
+border-radius:35px;
+overflow:hidden;
 }
 
 .price-box table{
@@ -1368,27 +1362,42 @@ text-decoration:line-through;
 color:#999;
 }
 
+@media(max-width:768px){
+
 .new-price{
-font-size:56px;
-font-weight:800;
-color:var(--primary);
-margin:12px 0;
+
+font-size:52px;
+
+line-height:1;
+
+word-break:break-word;
+
+}
+
+.old-price{
+
+font-size:22px;
+
+}
+
 }
 
 .buy-now{
-display:inline-flex;
+
+display:flex;
+
 justify-content:center;
+
 align-items:center;
-width:100%;
-padding:18px;
-border-radius:999px;
-margin-top:25px;
-background:linear-gradient(135deg,#7b2ff7,#b85cff);
-color:#fff;
+
+height:64px;
+
+font-size:22px;
+
 font-weight:700;
-font-size:18px;
-transition:.35s;
-box-shadow:0 18px 45px rgba(123,47,247,.25);
+
+border-radius:999px;
+
 }
 
 .buy-now:hover{
@@ -1564,44 +1573,41 @@ WHATSAPP
 
 position:fixed;
 
-right:25px;
-bottom:95px;
+right:18px;
+bottom:90px;
+
+width:60px;
+height:60px;
+
+border-radius:50%;
 
 display:flex;
+justify-content:center;
 align-items:center;
 
 background:#25D366;
 
-color:#fff;
-
-padding:14px 18px;
-
-border-radius:999px;
-
-font-weight:600;
-
-gap:10px;
-
-box-shadow:0 15px 40px rgba(0,0,0,.25);
+box-shadow:0 10px 30px rgba(0,0,0,.18);
 
 z-index:999;
 
-transition:.3s;
-
-}
-
-.wa-help:hover{
-
-transform:translateY(-5px);
+padding:0;
 
 }
 
 .wa-icon{
 
-font-size:26px;
+font-size:30px;
+
+color:#fff;
 
 }
 
+.wa-text{
+
+display:none;
+
+}
 /* ==========================================================
 STICKY BUY
 ========================================================== */
@@ -2005,10 +2011,14 @@ PRICING
 
 .price-box{
 
-grid-template-columns:1fr;
+padding:30px;
+
+border-radius:35px;
+
+overflow:hidden;
 
 }
-
+  
 /* ==========================
 FOOTER
 ========================== */

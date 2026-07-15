@@ -1,498 +1,436 @@
 /* ==========================================================
 MEGA BUNDLE WORKSHEET
-SCRIPT.JS V1.0
+SCRIPT.JS
+FINAL V1.0
 ========================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* =====================================
-       LOADER
-    ===================================== */
+const body=document.body;
 
-    window.addEventListener("load", () => {
+const loader=document.getElementById("loader");
 
-        const loader = document.getElementById("loader");
+const progress=document.getElementById("progress");
 
-        if (loader) {
+const header=document.getElementById("header");
 
-            loader.style.opacity = "0";
+const reveals=document.querySelectorAll(".reveal");
 
-            setTimeout(() => {
+const menu=document.querySelector(".menu-toggle");
 
-                loader.style.display = "none";
+const navbar=document.getElementById("navbar");
 
-            }, 400);
+/* ==========================================================
+LOADER
+========================================================== */
 
-        }
+window.addEventListener("load",()=>{
 
-    });
+setTimeout(()=>{
 
-    /* =====================================
-       STICKY HEADER
-    ===================================== */
+loader.style.opacity="0";
 
-    const header = document.getElementById("header");
+loader.style.visibility="hidden";
 
-    function stickyHeader() {
+},500);
 
-        if (!header) return;
+});
 
-        if (window.scrollY > 60) {
+/* ==========================================================
+HEADER
+========================================================== */
 
-            header.classList.add("sticky");
+function stickyHeader(){
 
-        } else {
+if(window.scrollY>80){
 
-            header.classList.remove("sticky");
+header.classList.add("sticky");
 
-        }
+}else{
 
-    }
+header.classList.remove("sticky");
 
-    window.addEventListener("scroll", stickyHeader);
+}
 
-    stickyHeader();
+}
 
-    /* =====================================
-       PROGRESS BAR
-    ===================================== */
+stickyHeader();
 
-    const progress = document.getElementById("progress");
+window.addEventListener("scroll",stickyHeader);
 
-    function progressBar() {
+/* ==========================================================
+PROGRESS BAR
+========================================================== */
 
-        if (!progress) return;
+function scrollProgress(){
 
-        const totalHeight =
-            document.documentElement.scrollHeight -
-            document.documentElement.clientHeight;
+const scroll=
 
-        const progressWidth =
-            (window.pageYOffset / totalHeight) * 100;
+document.documentElement.scrollTop;
 
-        progress.style.width = progressWidth + "%";
+const height=
 
-    }
+document.documentElement.scrollHeight-
 
-    window.addEventListener("scroll", progressBar);
+document.documentElement.clientHeight;
 
-    progressBar();
+const width=(scroll/height)*100;
 
-    /* =====================================
-       MOBILE MENU
-    ===================================== */
+progress.style.width=width+"%";
 
-    const menuBtn = document.querySelector(".menu-toggle");
+}
 
-    const navbar = document.getElementById("navbar");
+scrollProgress();
 
-    if (menuBtn && navbar) {
+window.addEventListener("scroll",scrollProgress);
 
-        menuBtn.addEventListener("click", () => {
+/* ==========================================================
+REVEAL
+========================================================== */
 
-            navbar.classList.toggle("active");
+const observer=
 
-        });
+new IntersectionObserver(entries=>{
 
-        navbar.querySelectorAll("a").forEach(link => {
+entries.forEach(entry=>{
 
-            link.addEventListener("click", () => {
+if(entry.isIntersecting){
 
-                navbar.classList.remove("active");
+entry.target.classList.add("active");
 
-            });
+}
 
-        });
+});
 
-    }
+},{
 
-    /* =====================================
-       SMOOTH SCROLL
-    ===================================== */
+threshold:.15
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+});
 
-        anchor.addEventListener("click", function (e) {
+reveals.forEach(item=>{
 
-            const target =
-                document.querySelector(this.getAttribute("href"));
+observer.observe(item);
 
-            if (!target) return;
+});
 
-            e.preventDefault();
+/* ==========================================================
+MOBILE MENU
+========================================================== */
 
-            target.scrollIntoView({
+if(menu){
 
-                behavior: "smooth"
+menu.addEventListener("click",()=>{
 
-            });
+navbar.classList.toggle("show");
 
-        });
+});
 
-    });
+}
 
-    /* =====================================
-       PREVIEW SLIDER
-    ===================================== */
+/* ==========================================================
+SMOOTH SCROLL
+========================================================== */
 
-    const slides = document.querySelectorAll(".slide");
-    const prevBtn = document.querySelector(".prev");
-    const nextBtn = document.querySelector(".next");
+document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
 
-    let currentSlide = 0;
+anchor.addEventListener("click",function(e){
 
-    function showSlide(index) {
+e.preventDefault();
 
-        if (!slides.length) return;
+const target=document.querySelector(this.getAttribute("href"));
 
-        slides.forEach(slide => {
-            slide.classList.remove("active");
-        });
+if(target){
 
-        slides[index].classList.add("active");
+target.scrollIntoView({
 
-    }
+behavior:"smooth"
 
-    function nextSlide() {
+});
 
-        currentSlide++;
+}
 
-        if (currentSlide >= slides.length) {
-            currentSlide = 0;
-        }
+if(navbar.classList.contains("show")){
 
-        showSlide(currentSlide);
+navbar.classList.remove("show");
 
-    }
+}
 
-    function prevSlide() {
+});
 
-        currentSlide--;
+});
 
-        if (currentSlide < 0) {
-            currentSlide = slides.length - 1;
-        }
+/* ==========================================================
+ACTIVE MENU
+========================================================== */
 
-        showSlide(currentSlide);
+const sections=document.querySelectorAll("section");
 
-    }
+const navLinks=document.querySelectorAll("#navbar a");
 
-    if (nextBtn) {
+window.addEventListener("scroll",()=>{
 
-        nextBtn.addEventListener("click", nextSlide);
+let current="";
 
-    }
+sections.forEach(section=>{
 
-    if (prevBtn) {
+const top=section.offsetTop-120;
 
-        prevBtn.addEventListener("click", prevSlide);
+const height=section.offsetHeight;
 
-    }
+if(pageYOffset>=top){
 
-    if (slides.length > 1) {
+current=section.getAttribute("id");
 
-        setInterval(nextSlide, 4000);
+}
 
-    }
+});
 
-    showSlide(currentSlide);
+navLinks.forEach(link=>{
 
+link.classList.remove("active");
 
+if(link.getAttribute("href")==="#"+current){
 
-    /* =====================================
-       REVEAL ANIMATION
-    ===================================== */
+link.classList.add("active");
 
-    const reveals = document.querySelectorAll(".reveal");
+}
 
-    function revealSection() {
+});
 
-        const windowHeight = window.innerHeight;
+});
 
-        reveals.forEach(item => {
+/* ==========================================================
+PREVIEW SLIDER
+========================================================== */
 
-            const top = item.getBoundingClientRect().top;
+const slides=document.querySelectorAll(".slide");
 
-            if (top < windowHeight - 80) {
+const next=document.querySelector(".next");
 
-                item.classList.add("active");
+const prev=document.querySelector(".prev");
 
-            }
+let currentSlide=0;
 
-        });
+function showSlide(index){
 
-    }
+slides.forEach(slide=>{
 
-    window.addEventListener("scroll", revealSection);
+slide.classList.remove("active");
 
-    revealSection();
+});
 
+slides[index].classList.add("active");
 
+}
 
-    /* =====================================
-       COUNTER
-    ===================================== */
+function nextSlide(){
 
-    const counters = document.querySelectorAll(".counter h2");
+currentSlide++;
 
-    let counterStarted = false;
+if(currentSlide>=slides.length){
 
-    function animateCounter() {
+currentSlide=0;
 
-        if (counterStarted) return;
+}
 
-        const counterBox = document.querySelector(".counter");
+showSlide(currentSlide);
 
-        if (!counterBox) return;
+}
 
-        const top = counterBox.getBoundingClientRect().top;
+function prevSlide(){
 
-        if (top > window.innerHeight - 100) return;
+currentSlide--;
 
-        counterStarted = true;
+if(currentSlide<0){
 
-        counters.forEach(counter => {
+currentSlide=slides.length-1;
 
-            const original = counter.innerText;
+}
 
-            const value = parseInt(original.replace(/\D/g, ""));
+showSlide(currentSlide);
 
-            if (!value) return;
+}
 
-            let start = 0;
+if(next){
 
-            const speed = value / 80;
+next.addEventListener("click",nextSlide);
 
-            const interval = setInterval(() => {
+}
 
-                start += speed;
+if(prev){
 
-                if (start >= value) {
+prev.addEventListener("click",prevSlide);
 
-                    counter.innerText = original;
+}
 
-                    clearInterval(interval);
+/* ==========================================================
+AUTO SLIDER
+========================================================== */
 
-                } else {
+setInterval(()=>{
 
-                    if (original.includes("+")) {
+if(slides.length){
 
-                        counter.innerText =
-                            Math.floor(start) + "+";
+nextSlide();
 
-                    } else {
+}
 
-                        counter.innerText =
-                            Math.floor(start);
+},4000);
 
-                    }
+/* ==========================================================
+KEYBOARD
+========================================================== */
 
-                }
+document.addEventListener("keydown",e=>{
 
-            }, 20);
+if(e.key==="ArrowRight"){
 
-        });
+nextSlide();
 
-    }
+}
 
-    window.addEventListener("scroll", animateCounter);
+if(e.key==="ArrowLeft"){
 
-    animateCounter();
+prevSlide();
 
+}
 
+});
 
-    /* =====================================
-       RIPPLE BUTTON
-    ===================================== */
+/* ==========================================================
+POPUP PROMO
+========================================================== */
 
-    document.querySelectorAll(".buy,.btn,.buy-now,.cta a")
-    .forEach(button => {
+const popup=document.getElementById("promoPopup");
+const closePopup=document.getElementById("closePopup");
 
-        button.addEventListener("click", function(e){
+if(popup){
 
-            const ripple = document.createElement("span");
+setTimeout(()=>{
 
-            ripple.className = "ripple";
+popup.style.display="flex";
 
-            const rect = this.getBoundingClientRect();
+},1200);
 
-            ripple.style.left =
-                (e.clientX - rect.left) + "px";
+}
 
-            ripple.style.top =
-                (e.clientY - rect.top) + "px";
+if(closePopup){
 
-            this.appendChild(ripple);
+closePopup.addEventListener("click",()=>{
 
-            setTimeout(() => {
+popup.style.display="none";
 
-                ripple.remove();
+});
 
-            },600);
+}
 
-        });
+if(popup){
 
-    });
+popup.addEventListener("click",(e)=>{
 
+if(e.target===popup){
 
+popup.style.display="none";
 
-    /* =====================================
-       ACTIVE MENU
-    ===================================== */
+}
 
-    const sections = document.querySelectorAll("section[id]");
+});
 
-    const navLinks = document.querySelectorAll("#navbar a");
+}
 
-    function activeMenu(){
+/* ==========================================================
+COUNTDOWN
+========================================================== */
 
-        let current = "";
+const countdown=document.getElementById("countdown");
 
-        sections.forEach(section=>{
+if(countdown){
 
-            const top = section.offsetTop - 120;
+let totalTime=24*60*60;
 
-            const height = section.offsetHeight;
+setInterval(()=>{
 
-            if(window.scrollY >= top){
+const hours=Math.floor(totalTime/3600);
 
-                current = section.getAttribute("id");
+const minutes=Math.floor((totalTime%3600)/60);
 
-            }
+const seconds=totalTime%60;
 
-        });
+countdown.textContent=
 
-        navLinks.forEach(link=>{
+String(hours).padStart(2,"0")+" : "+
 
-            link.classList.remove("active");
+String(minutes).padStart(2,"0")+" : "+
 
-            if(link.getAttribute("href")==="#" + current){
+String(seconds).padStart(2,"0");
 
-                link.classList.add("active");
+if(totalTime>0){
 
-            }
+totalTime--;
 
-        });
+}else{
 
-    }
+totalTime=24*60*60;
 
-    window.addEventListener("scroll",activeMenu);
+}
 
-    activeMenu();
+},1000);
 
-    /* =====================================
-       FAQ ACCORDION
-    ===================================== */
+}
 
-    const faqItems = document.querySelectorAll(".faq details");
+/* ==========================================================
+SCROLL TO TOP
+========================================================== */
 
-    faqItems.forEach(item => {
+const waButton=document.querySelector(".wa-help");
 
-        item.addEventListener("toggle", () => {
+if(waButton){
 
-            if (!item.open) return;
+waButton.addEventListener("dblclick",()=>{
 
-            faqItems.forEach(other => {
+window.scrollTo({
 
-                if (other !== item) {
+top:0,
 
-                    other.open = false;
+behavior:"smooth"
 
-                }
+});
 
-            });
+});
 
-        });
+}
 
-    });
+/* ==========================================================
+LAZY IMAGE FADE
+========================================================== */
 
+document.querySelectorAll("img").forEach(img=>{
 
+img.addEventListener("load",()=>{
 
-    /* =====================================
-       STICKY BUY MOBILE
-    ===================================== */
+img.style.opacity="1";
 
-    const stickyBuy = document.querySelector(".sticky-buy");
+});
 
-    function toggleStickyBuy() {
+});
 
-        if (!stickyBuy) return;
+/* ==========================================================
+PREVENT EMPTY LINK
+========================================================== */
 
-        if (window.innerWidth > 768) {
+document.querySelectorAll('a[href="#"]').forEach(link=>{
 
-            stickyBuy.style.display = "none";
-            return;
+link.addEventListener("click",(e)=>{
 
-        }
+e.preventDefault();
 
-        if (window.scrollY > 500) {
+});
 
-            stickyBuy.style.display = "flex";
+});
 
-        } else {
+/* ==========================================================
+END
+========================================================== */
 
-            stickyBuy.style.display = "none";
-
-        }
-
-    }
-
-    window.addEventListener("scroll", toggleStickyBuy);
-
-    window.addEventListener("resize", toggleStickyBuy);
-
-    toggleStickyBuy();
-
-
-
-    /* =====================================
-       ACTIVE NAVBAR SCROLL
-    ===================================== */
-
-    const navLinksAll = document.querySelectorAll("#navbar a");
-
-    navLinksAll.forEach(link => {
-
-        link.addEventListener("click", () => {
-
-            navLinksAll.forEach(nav => {
-
-                nav.classList.remove("active");
-
-            });
-
-            link.classList.add("active");
-
-        });
-
-    });
-
-
-
-    /* =====================================
-       IMAGE LAZY FALLBACK
-    ===================================== */
-
-    document.querySelectorAll("img").forEach(img => {
-
-        if (!img.hasAttribute("loading")) {
-
-            img.setAttribute("loading", "lazy");
-
-        }
-
-    });
-
-
-
-    /* =====================================
-       CONSOLE INFO
-    ===================================== */
-
-    console.log("%cMega Bundle Worksheet V1.0",
-        "color:#7b2ff7;font-size:18px;font-weight:bold");
-
-    console.log("Developed by Deo Permana Digital");
-    
-    
 });

@@ -2027,3 +2027,184 @@ body{
 }
 
 }
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width:768px){
+
+    /* HEADER */
+
+    .header-wrap{
+
+        height:70px;
+
+        gap:10px;
+
+    }
+
+    /* LOGO */
+
+    .logo img{
+
+        width:45px;
+        height:45px;
+
+    }
+
+    .logo h3{
+
+        font-size:16px;
+
+    }
+
+    .logo span{
+
+        font-size:11px;
+
+    }
+
+    /* TOMBOL BELI */
+
+    .btn{
+
+        width:90px;
+
+        height:42px;
+
+        font-size:15px;
+
+        padding:0;
+
+    }
+
+    /* HAMBURGER */
+
+    .menu-toggle{
+
+        display:block;
+
+        font-size:30px;
+
+    }
+
+    /* MENU */
+
+    #navbar{
+
+        display:none;
+
+        position:absolute;
+
+        top:70px;
+
+        left:0;
+
+        width:100%;
+
+        background:#fff;
+
+        flex-direction:column;
+
+        padding:20px;
+
+        box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+    }
+
+    #navbar.active{
+
+        display:flex;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+.hero{
+
+    padding-top:110px;
+
+}
+
+.hero h1{
+
+    font-size:52px;
+
+}
+
+.hero h1 span{
+
+    font-size:40px;
+
+}
+
+.hero-desc{
+
+    font-size:18px;
+
+    line-height:1.8;
+
+}
+
+.hero-feature{
+
+    grid-template-columns:1fr;
+
+    gap:14px;
+
+}
+
+.hero-action{
+
+    flex-direction:column;
+
+    gap:15px;
+
+}
+
+.hero-action a{
+
+    width:100%;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.counter{
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:15px;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.wa-help{
+
+    bottom:90px;
+
+    right:18px;
+
+    transform:scale(.85);
+
+}
+
+}
+
+@media(max-width:768px){
+
+.sticky-buy{
+
+    display:none !important;
+
+}
+
+}

@@ -349,6 +349,22 @@ popup.style.display="none";
 }
 
 /* ==========================================================
+CLOSE POPUP
+========================================================== */
+
+function closePromoPopup(){
+
+    const popup = document.getElementById("promoPopup");
+
+    if(popup){
+
+        popup.style.display = "none";
+
+    }
+
+}
+
+/* ==========================================================
 COUNTDOWN
 ========================================================== */
 

@@ -288,32 +288,14 @@ header.sticky{
 }
 
 .btn{
-
-    display:inline-flex;
-
-    align-items:center;
-    justify-content:center;
-
-    padding:14px 28px;
-
-    border-radius:999px;
-
-    color:#fff;
-
+    padding:14px 36px;
+    font-size:15px;
     font-weight:700;
-
-    background:
-        linear-gradient(
-            135deg,
-            #7b2ff7,
-            #b85cff
-        );
-
-    box-shadow:
-        0 15px 35px rgba(123,47,247,.25);
-
-    transition:.35s;
-
+    color:#fff;
+    background:linear-gradient(135deg,#7b2ff7,#9d4edd);
+    border:none;
+    border-radius:50px;
+    box-shadow:0 8px 25px rgba(123,47,247,.25);
 }
 
 .btn:hover{

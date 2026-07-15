@@ -1,25 +1,41 @@
 # Mega Bundle Worksheet Anak
 
-Landing page resmi untuk produk **Mega Bundle Worksheet Anak**.
+Landing Page penjualan Worksheet Premium.
+
+## Teknologi
+
+- HTML5
+- CSS3
+- JavaScript
+- Font Awesome
+- Google Fonts
 
 ## Fitur
-- 4000+ Printable Worksheet
-- PDF HD Ready
-- Print Unlimited
-- Instant Download
+
+- Responsive
+- SEO Friendly
+- Fast Loading
+- GitHub Pages Ready
 - Mobile Friendly
-- SEO Optimized
+- WhatsApp CTA
+- Preview Slider
+- FAQ
+- Testimoni
+- Pricing
 
-## Target Pengguna
-- Orang Tua
-- Guru PAUD
-- Guru TK
-- Homeschooling
-- Daycare
-- Tutor
+## Struktur
 
-## Live Demo
-https://deopermanadigital.github.io/worksheet/
+```
+assets/
+    css/
+    js/
+    hero/
+    logo/
+    preview/
+    favicon/
 
-## Dibuat oleh
-Deopermana Digital
+index.html
+manifest.webmanifest
+robots.txt
+sitemap.xml
+```

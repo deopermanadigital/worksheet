@@ -1822,35 +1822,59 @@ color:#444;
 
 }
 
-#closePopup{
-
-position:absolute;
-
-top:18px;
-
-right:18px;
-
-width:42px;
-
-height:42px;
-
-border-radius:50%;
-
-background:#fff;
+.popup-buttons{
 
 display:flex;
 
-justify-content:center;
+gap:12px;
 
-align-items:center;
+margin-top:20px;
+
+}
+
+.popup-buttons a,
+.popup-buttons button{
+
+flex:1;
+
+height:56px;
+
+border:none;
+
+border-radius:999px;
+
+font-size:17px;
+
+font-weight:700;
 
 cursor:pointer;
 
-font-size:22px;
+font-family:inherit;
 
-font-weight:bold;
+transition:.3s;
 
-box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+.popup-buy{
+
+background:linear-gradient(135deg,#7b2ff7,#b85cff);
+
+color:#fff;
+
+}
+
+.popup-skip{
+
+background:#f3f3f3;
+
+color:#444;
+
+}
+
+.popup-buy:hover,
+.popup-skip:hover{
+
+transform:translateY(-3px);
 
 }
 

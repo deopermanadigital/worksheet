@@ -128,6 +128,15 @@ navbar.classList.toggle("show");
 
 }
 
+document.querySelectorAll("#navbar a").forEach(item=>{
+
+item.addEventListener("click",()=>{
+
+navbar.classList.remove("show");
+
+});
+
+});
 /* ==========================================================
 SMOOTH SCROLL
 ========================================================== */

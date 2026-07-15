@@ -107,28 +107,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-    /* =====================================
+/* =====================================
    SMOOTH SCROLL
 ===================================== */
 
-document.querySelectorAll('a[href^="#"]').forEach(link => {
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
-    link.addEventListener("click", function(e){
+    anchor.addEventListener("click", function (e) {
 
-        const id = this.getAttribute("href");
+        const href = this.getAttribute("href");
 
-        if(id === "#") return;
+        if (href === "#") return;
 
-        const target = document.querySelector(id);
+        const target = document.querySelector(href);
 
-        if(!target) return;
+        if (!target) return;
 
         e.preventDefault();
 
-        target.scrollIntoView({
+        window.scrollTo({
 
-            behavior:"smooth",
-            block:"start"
+            top: target.offsetTop - 70,
+            behavior: "smooth"
 
         });
 
@@ -314,10 +314,11 @@ runCounter();
    RIPPLE EFFECT
 ===================================== */
 
-document.querySelectorAll(".btn,.buy,.buy-now,.secondary,.cta a")
-.forEach(button=>{
+document
+.querySelectorAll(".btn,.buy,.buy-now,.secondary,.cta a")
+.forEach(btn=>{
 
-    button.addEventListener("click",function(e){
+    btn.addEventListener("click",function(e){
 
         const ripple=document.createElement("span");
 
@@ -330,8 +331,8 @@ document.querySelectorAll(".btn,.buy,.buy-now,.secondary,.cta a")
         ripple.style.width=size+"px";
         ripple.style.height=size+"px";
 
-        ripple.style.left=e.clientX-rect.left-size/2+"px";
-        ripple.style.top=e.clientY-rect.top-size/2+"px";
+        ripple.style.left=(e.clientX-rect.left-size/2)+"px";
+        ripple.style.top=(e.clientY-rect.top-size/2)+"px";
 
         this.appendChild(ripple);
 
